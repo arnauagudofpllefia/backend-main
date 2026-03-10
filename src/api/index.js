@@ -1,5 +1,5 @@
 import express from 'express';
-import { connectDB } from '../../config/database.js';
+import { connectDB } from '../config/database.js';
 import alumnosRoutes from '../../routes/alumnos.routes.js';
 
 const app = express();
