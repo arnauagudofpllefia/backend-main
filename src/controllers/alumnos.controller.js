@@ -1,8 +1,6 @@
 import Alumno from '../models/Alumno.js';
 
-/**
- * Obtener todos los alumnos
- */
+
 export const getAllAlumnos = async (req, res) => {
   try {
     const alumnos = await Alumno.find().sort({ createdAt: -1 });
@@ -15,9 +13,7 @@ export const getAllAlumnos = async (req, res) => {
   }
 };
 
-/**
- * Obtener un alumno por ID
- */
+
 export const getAlumnoById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -36,14 +32,12 @@ export const getAlumnoById = async (req, res) => {
   }
 };
 
-/**
- * Crear un nuevo alumno
- */
+
 export const createAlumno = async (req, res) => {
   try {
     const { nombre, apellidos, promocion, ciclo, urlImagen } = req.body;
     
-    // Validación básica
+ 
     if (!nombre || !apellidos || !promocion || !ciclo || !urlImagen) {
       return res.status(400).json({ 
         error: 'Todos los campos son obligatorios' 
@@ -68,9 +62,6 @@ export const createAlumno = async (req, res) => {
   }
 };
 
-/**
- * Actualizar un alumno
- */
 export const updateAlumno = async (req, res) => {
   try {
     const { id } = req.params;
@@ -95,9 +86,7 @@ export const updateAlumno = async (req, res) => {
   }
 };
 
-/**
- * Eliminar un alumno
- */
+
 export const deleteAlumno = async (req, res) => {
   try {
     const { id } = req.params;
@@ -116,9 +105,7 @@ export const deleteAlumno = async (req, res) => {
   }
 };
 
-/**
- * Filtrar alumnos por promoción
- */
+
 export const getAlumnosByPromocion = async (req, res) => {
   try {
     const { promocion } = req.params;
@@ -132,9 +119,7 @@ export const getAlumnosByPromocion = async (req, res) => {
   }
 };
 
-/**
- * Buscar alumnos por nombre o apellidos
- */
+
 export const searchAlumnos = async (req, res) => {
   try {
     const { q } = req.query;

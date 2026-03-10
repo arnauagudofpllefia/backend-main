@@ -30,7 +30,7 @@ const alumnoSchema = new mongoose.Schema({
   timestamps: true, // Agrega createdAt y updatedAt automáticamente
 });
 
-// Índices para mejorar las búsquedas
+
 alumnoSchema.index({ promocion: 1 });
 alumnoSchema.index({ nombre: 'text', apellidos: 'text' });
 
