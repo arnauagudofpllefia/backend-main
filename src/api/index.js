@@ -1,8 +1,8 @@
+
 import express from 'express';
 import cors from 'cors';
-import serverless from 'serverless-http';
-import { connectDB } from './config/database.js';
-import alumnosRoutes from './routes/alumnos.routes.js';
+import { connectDB } from '../config/database.js';
+import alumnosRoutes from '../routes/alumnos.routes.js';
 
 const app = express();
 
@@ -24,4 +24,5 @@ app.use((err, req, res, next) => {
 
 await connectDB();
 
-export default serverless(app);
+
+export default app;
