@@ -3,7 +3,23 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const normalizeMongoUri = (rawValue) => {
+  if (!rawValue) return '';
+
+  let uri = rawValue.trim();
+
+  // Permite valores mal pegados en plataformas (ej: "MONGODB_URI=mongodb+srv://...")
+  if (uri.startsWith('MONGODB_URI=')) {
+    uri = uri.slice('MONGODB_URI='.length).trim();
+  }
+
+  // Quitar comillas accidentales
+  uri = uri.replace(/^['\"]|['\"]$/g, '');
+
+  return uri;
+};
+
+const MONGODB_URI = normalizeMongoUri(process.env.MONGODB_URI);
 
 // Validar que MONGODB_URI existe
 if (!MONGODB_URI) {
@@ -14,6 +30,10 @@ export const connectDB = async () => {
   // Validar configuración
   if (!MONGODB_URI) {
     throw new Error('MONGODB_URI no está configurada. Configúrala en las variables de entorno.');
+  }
+
+  if (!MONGODB_URI.startsWith('mongodb://') && !MONGODB_URI.startsWith('mongodb+srv://')) {
+    throw new Error('MONGODB_URI inválida. Debe empezar por mongodb:// o mongodb+srv://');
   }
 
   // Evitar reconexiones innecesarias
